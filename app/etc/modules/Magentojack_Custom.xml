@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magentojack_Custom>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Magentojack_Custom>
+    </modules>
+</config> 
