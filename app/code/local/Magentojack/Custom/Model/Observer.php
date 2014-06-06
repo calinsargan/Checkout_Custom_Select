@@ -3,20 +3,20 @@ class Magentojack_Custom_Model_Observer{
 	public function saveQuoteBefore($evt){
 		$quote = $evt->getQuote();
 		$post = Mage::app()->getFrontController()->getRequest()->getPost();
-		if(isset($post['custom']['ssn'])){
-			$var = $post['custom']['ssn'];
-			$quote->setSsn($var);
+		if(isset($post['custom']['contacttype'])){
+			$var = $post['custom']['contacttype'];
+			$quote->setContacttype($var);
 		}
 	}
 	public function saveQuoteAfter($evt){
 		$quote = $evt->getQuote();
-		if($quote->getSsn()){
-			$var = $quote->getSsn();
+		if($quote->getContacttype()){
+			$var = $quote->getContacttype();
 			if(!empty($var)){
 				$model = Mage::getModel('custom/custom_quote');
-				$model->deteleByQuote($quote->getId(),'ssn');
+				$model->deteleByQuote($quote->getId(),'contacttype');
 				$model->setQuoteId($quote->getId());
-				$model->setKey('ssn');
+				$model->setKey('contacttype');
 				$model->setValue($var);
 				$model->save();
 			}
@@ -33,15 +33,15 @@ class Magentojack_Custom_Model_Observer{
 	public function saveOrderAfter($evt){
 		$order = $evt->getOrder();
 		$quote = $evt->getQuote();
-		if($quote->getSsn()){
-			$var = $quote->getSsn();
+		if($quote->getContacttype()){
+			$var = $quote->getContacttype();
 			if(!empty($var)){
 				$model = Mage::getModel('custom/custom_order');
-				$model->deleteByOrder($order->getId(),'ssn');
+				$model->deleteByOrder($order->getId(),'contacttype');
 				$model->setOrderId($order->getId());
-				$model->setKey('ssn');
+				$model->setKey('contacttype');
 				$model->setValue($var);
-				$order->setSsn($var);
+				$order->setContacttype($var);
 				$model->save();
 			}
 		}
